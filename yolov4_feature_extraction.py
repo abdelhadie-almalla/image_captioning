@@ -1,3 +1,4 @@
+# This file is only an example about the use of YOLOv4 for features extraction, and is not imported in the main source of the application. Please refer to yolo.py
 import tensorflow as tf
 from yolov4.tf import YOLOv4
 import cv2
