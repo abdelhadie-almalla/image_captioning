@@ -19,7 +19,7 @@ yolo.load_weights("yolov4.weights", weights_type="yolo")
 
 
 # the output is sorted according to the area by confidence
-def image_path_to_yolo_bounding_boxes(image_path, coco_dict, word_index):
+def image_path_to_yolo_bounding_boxes(image_path):  # , coco_dict, word_index):
     frame = cv2.imread(image_path)
     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     bboxes = yolo.predict(frame, prob_thresh=0.25)
@@ -27,13 +27,13 @@ def image_path_to_yolo_bounding_boxes(image_path, coco_dict, word_index):
     n = len(bboxes)
     # for each bounding box, append (area * confidence)
     for i in range(n):
-        # bboxes[i].append(bboxes[i][2] * bboxes[i][3] * bboxes[i][5])
-        obj_class_name = coco_dict[int(bboxes[i][4])].replace(" ", "")
-        if obj_class_name in word_index:
-            bboxes[i][4] = word_index[coco_dict[int(bboxes[i][4])].replace(" ", "")]
-        else:
-            bboxes[i][4] = word_index['<pad>']
-    # quickSort(bboxes, 0, n - 1)
+        bboxes[i].append(bboxes[i][2] * bboxes[i][3] * bboxes[i][5])
+        # obj_class_name = coco_dict[int(bboxes[i][4])].replace(" ", "")
+        # if obj_class_name in word_index:
+        #    bboxes[i][4] = word_index[coco_dict[int(bboxes[i][4])].replace(" ", "")]
+        # else:
+        #    bboxes[i][4] = word_index['<pad>']
+    quickSort(bboxes, 0, n - 1)
     bboxes = np.array(bboxes)
     return bboxes
 
@@ -48,11 +48,10 @@ def yolo_load_image(image_path):
     frame = frame[np.newaxis, ...].astype(np.float32)
     return frame
 
+# yolo_new_input = yolo.model.input
+# yolo_hidden_layer = yolo.model.layers[-1].output
 
-yolo_new_input = yolo.model.input
-yolo_hidden_layer = yolo.model.layers[-1].output
-
-yolo_image_features_extract_model = tf.keras.Model(yolo_new_input, yolo_hidden_layer)
+# yolo_image_features_extract_model = tf.keras.Model(yolo_new_input, yolo_hidden_layer)
 
 # driver code
 # image_path = "C:/Users/Hadie/Desktop/yolo/NYC_14th_Street_looking_west_12_2005.jpg"
