@@ -7,6 +7,8 @@ Please cite the paper if you use this code.
 
 The input is an image and the output is a sentence that describes the input image. The solution uses attention with deep learning.
 
+You need to download yolov4.weights from https://pypi.org/project/yolov4/
+
 1. image_captioning_version_16.1--feature_concatination--boundingboxes_v2.py: training, validation, and testing.
 
 The main file. Contains the code for training the model, and then runs the model to predict the captions on the validation set.
