@@ -29,7 +29,7 @@ Takes as parameters the result file and the original caption file.
 This file does not need to be executed from a specific directory.
 
 Example use:
-python.exe evaluate.py results.json captions_train2014.json
+python evaluate.py results.json captions_train2014.json
 
 This file is written in Python 2
 Obtained from: https://github.com/tylin/coco-caption/blob/master/cocoEvalCapDemo.ipynb
